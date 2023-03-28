@@ -11,4 +11,4 @@ type FtpServer struct {
 	Config      config.Configuration
 }
 
-var Ftp = new(FtpServer)
+var Ftpserver = new(FtpServer)

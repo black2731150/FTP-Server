@@ -30,13 +30,13 @@ func InitializeConfig() *viper.Viper {
 	v.OnConfigChange(func(in fsnotify.Event) {
 		fmt.Println("Config file changed: ", in.Name)
 		//重载配置
-		if err := v.Unmarshal(&global.Ftp.Config); err != nil {
+		if err := v.Unmarshal(&global.Ftpserver.Config); err != nil {
 			fmt.Println(err)
 		}
 	})
 
 	//配置文件赋值给全局变量
-	if err := v.Unmarshal(&global.Ftp.Config); err != nil {
+	if err := v.Unmarshal(&global.Ftpserver.Config); err != nil {
 		fmt.Println(err)
 	}
 
