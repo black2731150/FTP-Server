@@ -7,7 +7,9 @@ import (
 )
 
 func SetRootGroupRoutes(router *gin.RouterGroup) {
+	//测试路由
 	router.GET("/ping", func(ctx *gin.Context) {
 		ctx.String(http.StatusOK, "pong")
 	})
+
 }

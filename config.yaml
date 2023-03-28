@@ -1,3 +1,8 @@
 ftp: 
   port: 1234
   name: ftp-server
+
+database:
+  dirver: sqlite3
+  database: fileinfos.db
+  
