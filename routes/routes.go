@@ -24,4 +24,7 @@ func SetRootGroupRoutes(router *gin.RouterGroup) {
 	//前端获取信息接口
 	router.GET("/getFileInfo", GetFileInfo())
 
+	//备注更新接口
+	router.POST("/update", Update())
+
 }

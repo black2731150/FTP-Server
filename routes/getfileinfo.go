@@ -29,7 +29,6 @@ func GetFileInfo() gin.HandlerFunc {
 			"data":  fileinfos, //请求的数据
 			"total": total,     //总数据的数量
 			"size":  Size,      //搜索返回的数据数量
-
 		})
 
 	}
