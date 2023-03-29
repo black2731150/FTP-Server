@@ -21,4 +21,7 @@ func SetRootGroupRoutes(router *gin.RouterGroup) {
 	//上传文件服务
 	router.POST("./upload", Upload())
 
+	//前端获取信息接口
+	router.GET("/getFileInfo", GetFileInfo())
+
 }
