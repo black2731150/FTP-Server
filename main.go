@@ -1,16 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"fpt/bootstrap"
-	"fpt/global"
 )
 
 func main() {
 	//初始化配置
 	bootstrap.InitializeConfig()
-
-	fmt.Println(global.Ftpserver.Config)
 
 	//初始化数据库
 	bootstrap.InitializeDB()

@@ -28,7 +28,6 @@ func GetFileInfoFromDB(page, size int, search string) (int, int, []global.FileIn
 	}
 	defer rows.Close()
 
-	var Size int = 0
 	var fileinfos []global.FileInfo
 	for rows.Next() {
 		fileinfo := global.FileInfo{}
@@ -38,14 +37,19 @@ func GetFileInfoFromDB(page, size int, search string) (int, int, []global.FileIn
 			panic("")
 		}
 		fileinfos = append(fileinfos, fileinfo)
-		Size++
 	}
 
-	return Size, getTotal(), fileinfos
+	return getSize(search), getTotal(), fileinfos
 }
 
 func getTotal() int {
 	var Total int
-	common.GetGromDB().Raw("select count() from file_infos").Scan(&Total)
+	common.GetGromDB().Raw("select count() from file_infos;").Scan(&Total)
 	return Total
+}
+
+func getSize(search string) int {
+	var Size int
+	common.GetGromDB().Raw("select count() from file_infos where (name like ? or branch like ?)", "%"+search+"%", "%"+search+"%").Scan(&Size)
+	return Size
 }
