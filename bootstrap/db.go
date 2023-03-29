@@ -8,9 +8,10 @@ import (
 	"gorm.io/gorm"
 )
 
+//初始化数据库
 func InitializeDB() {
 	//根据驱动配置进行初始化
-	switch global.Ftpserver.Config.Database.Database {
+	switch global.Ftpserver.Config.Database.Driver {
 	case "sqlite":
 		global.Ftpserver.DB = initSqliteGorm()
 	default:
@@ -18,6 +19,7 @@ func InitializeDB() {
 	}
 }
 
+//初始化sqlite数据库
 func initSqliteGorm() *gorm.DB {
 	db, err := gorm.Open(sqlite.Open(global.Ftpserver.Config.Database.Database), &gorm.Config{})
 	if err != nil {
@@ -25,5 +27,7 @@ func initSqliteGorm() *gorm.DB {
 	}
 
 	db.AutoMigrate(&global.FileInfo{})
+
+	fmt.Println("Database initialize success!")
 	return db
 }

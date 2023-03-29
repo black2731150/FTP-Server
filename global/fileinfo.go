@@ -1,5 +1,6 @@
 package global
 
+//文件信息格式
 type FileInfo struct {
 	// ID          int
 	Name        string
