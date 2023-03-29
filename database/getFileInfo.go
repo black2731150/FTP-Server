@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"fpt/common"
 	"fpt/global"
 )
 
@@ -15,7 +16,7 @@ func GetFileInfoFromDB(page, size int, search string) (int, int, []global.FileIn
 	}
 
 	//获取数据库
-	db, err := global.Ftpserver.DB.DB()
+	db, err := common.GetSqlDB()
 	if err != nil {
 		fmt.Println("Faild to connect database: ", err)
 	}
@@ -45,6 +46,6 @@ func GetFileInfoFromDB(page, size int, search string) (int, int, []global.FileIn
 
 func getTotal() int {
 	var Total int
-	global.Ftpserver.DB.Raw("select count() from file_infos").Scan(&Total)
+	common.GetGromDB().Raw("select count() from file_infos").Scan(&Total)
 	return Total
 }

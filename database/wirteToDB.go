@@ -23,7 +23,7 @@ func WriteToDB(filepath string, text string, branch string, url string) error {
 	fileinfo.Branch = branch
 	fileinfo.Text = text
 
-	global.Ftpserver.DB.Create(fileinfo)
+	common.GetGromDB().Create(fileinfo)
 
 	return nil
 }

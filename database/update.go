@@ -2,12 +2,12 @@ package database
 
 import (
 	"fmt"
-	"fpt/global"
+	"fpt/common"
 )
 
 func UpdateText(name, text string) bool {
 
-	db, err := global.Ftpserver.DB.DB()
+	db, err := common.GetSqlDB()
 	if err != nil {
 		fmt.Println("Faild to Get DB: ", err)
 	}
