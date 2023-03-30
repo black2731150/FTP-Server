@@ -2,6 +2,7 @@ package routes
 
 import (
 	"fpt/common"
+	"fpt/global"
 	"io"
 	"net/http"
 
@@ -11,8 +12,9 @@ import (
 func DownoadFile() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		filename := ctx.Param("FileName")
+		filepath := global.FileServerFile + filename
 
-		file, err := common.OpenFile("files/" + filename)
+		file, err := common.OpenFile(filepath)
 		if err != nil {
 			ctx.String(http.StatusOK, "Error")
 		}
@@ -20,7 +22,7 @@ func DownoadFile() gin.HandlerFunc {
 
 		chuck := 1024 * 4
 
-		ctx.Header("Content-Type", "application/octet-stream")
+		ctx.Header(global.ConnectType, global.ConnectTypeDlwnload)
 
 		for {
 			buf := make([]byte, chuck)

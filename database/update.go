@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"fpt/common"
+	"fpt/global"
 )
 
 func UpdateText(name, text string) bool {
@@ -26,5 +27,13 @@ func UpdateText(name, text string) bool {
 	}
 	Lock.Unlock()
 
+	return true
+}
+
+func UpdateText1(name, text string) bool {
+	DB := global.Ftpserver.DB
+	Lock.Lock()
+	DB.Table("file_infos").Where("name = ?", name).Update("text", text)
+	Lock.Unlock()
 	return true
 }

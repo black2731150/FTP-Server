@@ -3,6 +3,7 @@ package routes
 import (
 	"fmt"
 	"fpt/database"
+	"fpt/global"
 	"net/http"
 	"strconv"
 
@@ -22,13 +23,13 @@ func GetFileInfo() gin.HandlerFunc {
 
 		search := ctx.DefaultQuery("search", "")
 
-		Size, total, fileinfos := database.GetFileInfoFromDB(page, size, search)
+		total, fileinfos := database.GetFileInfoFromDB1(page, size, search)
 
 		ctx.JSON(http.StatusOK, gin.H{
-			"code":  "SUCCESS", //表示请求过去数据成功
-			"data":  fileinfos, //请求的数据
-			"total": total,     //总数据的数量
-			"size":  Size,      //搜索返回的数据数量
+			"code":  global.Success, //表示请求过去数据成功
+			"data":  fileinfos,      //请求的数据
+			"total": total,          //总数据的数量
+			"size":  total,          //搜索返回的数据数量
 		})
 
 	}

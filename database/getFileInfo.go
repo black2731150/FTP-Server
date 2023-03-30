@@ -56,3 +56,24 @@ func getSize(search string) int {
 	common.GetGromDB().Raw("select count() from file_infos where (name like ? or branch like ?)", "%"+search+"%", "%"+search+"%").Scan(&Size)
 	return Size
 }
+
+func GetFileInfoFromDB1(page, size int, search string) (int64, []global.FileInfo) {
+	//页数规范
+	if size < 1 {
+		size = 10
+	}
+	if page < 1 {
+		page = 1
+	}
+
+	DB := common.GetGromDB()
+
+	var fileinfos []global.FileInfo
+	var total int64
+	Lock.Lock()
+	DB.Table("file_infos").Where("(name like ? or branch like ?) limit ?,?", "%"+search+"%", "%"+search+"%", (page-1)*size, size).Find(&fileinfos).Count(&total)
+	Lock.Unlock()
+
+	// fmt.Println("Get :", fileinfos, "\ntotal: ", total)
+	return total, fileinfos
+}
