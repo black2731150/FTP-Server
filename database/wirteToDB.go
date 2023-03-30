@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"fpt/common"
 	"fpt/global"
+	"sync"
 )
+
+var Lock sync.Mutex
 
 //把上传文件信息写进数据库里
 func WriteToDB(filepath string, text string, branch string, url string) error {
@@ -23,7 +26,9 @@ func WriteToDB(filepath string, text string, branch string, url string) error {
 	fileinfo.Branch = branch
 	fileinfo.Text = text
 
+	Lock.Lock()
 	common.GetGromDB().Create(fileinfo)
+	Lock.Unlock()
 
 	return nil
 }

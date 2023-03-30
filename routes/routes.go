@@ -14,9 +14,12 @@ func SetRootGroupRoutes(router *gin.RouterGroup) {
 	})
 
 	//静态文件服务
-	router.StaticFS("/files", http.Dir("./files"))
+	// router.StaticFS("/files", http.Dir("./files"))
 	router.StaticFS("/web", http.Dir("./web"))
 	router.StaticFile("/", "./web/index.html")
+
+	//下载文件服务
+	router.GET("/files/:FileName", DownLAndFile())
 
 	//上传文件服务
 	router.POST("./upload", Upload())

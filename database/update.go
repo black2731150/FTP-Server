@@ -7,6 +7,7 @@ import (
 
 func UpdateText(name, text string) bool {
 
+	Lock.Lock()
 	db, err := common.GetSqlDB()
 	if err != nil {
 		fmt.Println("Faild to Get DB: ", err)
@@ -23,6 +24,7 @@ func UpdateText(name, text string) bool {
 		fmt.Println("rs is error: ", id, "  ", err)
 		return false
 	}
+	Lock.Unlock()
 
 	return true
 }

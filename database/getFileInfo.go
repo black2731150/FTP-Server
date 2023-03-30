@@ -15,6 +15,7 @@ func GetFileInfoFromDB(page, size int, search string) (int, int, []global.FileIn
 		page = 1
 	}
 
+	Lock.Lock()
 	//获取数据库
 	db, err := common.GetSqlDB()
 	if err != nil {
@@ -38,6 +39,8 @@ func GetFileInfoFromDB(page, size int, search string) (int, int, []global.FileIn
 		}
 		fileinfos = append(fileinfos, fileinfo)
 	}
+
+	Lock.Unlock()
 
 	return getSize(search), getTotal(), fileinfos
 }
