@@ -5,5 +5,5 @@ ftp:
 
 database:
   driver: sqlite
-  database: fileinfos.db
+  database: ../databases/fileinfos.db
   

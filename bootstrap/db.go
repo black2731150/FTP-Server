@@ -22,6 +22,7 @@ func InitializeDB() {
 //初始化sqlite数据库
 func initSqliteGorm() *gorm.DB {
 	db, err := gorm.Open(sqlite.Open(global.Ftpserver.Config.Database.Database), &gorm.Config{})
+	fmt.Println("The database path is :", global.Ftpserver.Config.Database.Database)
 	if err != nil {
 		fmt.Println("Faild to connect database: ", err)
 	}
