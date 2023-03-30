@@ -14,13 +14,11 @@ import (
 func main() {
 
 	filename := flag.String("f", "", "上传文件的名字")
-	Text := flag.String("m", "无备注", "上传文件的描述信息")
-	Branch := flag.String("b", "无所属分支", "上传文件所属分支")
+	Text := flag.String("m", " ", "上传文件的描述信息")
+	Branch := flag.String("b", "", "上传文件所属分支")
 	URL := flag.String("url", "http://121.5.145.152:1234", "上传文件的网址")
 	flag.String("h", "Exampol: ./upload -url {http://127.0.0.1:8080} -f {filename} -m {文件备注} -b{文件所属分支}", "用法说明")
 	flag.Parse()
-
-	// filename := "./fileinfo/fileinfo.go"
 
 	ok, err := common.PathExists(*filename)
 	if !ok {

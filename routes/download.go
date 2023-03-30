@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func DownLAndFile() gin.HandlerFunc {
+func DownoadFile() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		filename := ctx.Param("FileName")
 
