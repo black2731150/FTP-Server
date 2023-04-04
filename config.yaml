@@ -2,8 +2,10 @@ ftp:
   host: 0.0.0.0
   port: 1234
   name: ftp-server
+  storage: files
 
 database:
   driver: sqlite
-  database: ../databases/fileinfos.db
+  databasename: fileinfos.db
+  databasefile: ../databases
   

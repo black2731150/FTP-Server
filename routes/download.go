@@ -12,7 +12,7 @@ import (
 func DownoadFile() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		filename := ctx.Param("FileName")
-		filepath := global.FileServerFile + filename
+		filepath := global.Ftpserver.Config.Ftp.Storage + "/" + filename
 
 		file, err := common.OpenFile(filepath)
 		if err != nil {
