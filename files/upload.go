@@ -9,18 +9,17 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 
 func main() {
 
 	filename := flag.String("f", "", "上传文件的名字")
-	Text := flag.String("m", "无备注", "上传文件的描述信息")
-	Branch := flag.String("b", "无所属分支", "上传文件所属分支")
+	Text := flag.String("m", " ", "上传文件的描述信息")
+	Branch := flag.String("b", "", "上传文件所属分支")
 	URL := flag.String("url", "http://121.5.145.152:1234", "上传文件的网址")
 	flag.String("h", "Exampol: ./upload -url {http://127.0.0.1:8080} -f {filename} -m {文件备注} -b{文件所属分支}", "用法说明")
 	flag.Parse()
-
-	// filename := "./fileinfo/fileinfo.go"
 
 	ok, err := common.PathExists(*filename)
 	if !ok {
@@ -50,13 +49,13 @@ func postFile(filename string, URL string, text string, branch string) (*http.Re
 		return nil, err
 	}
 
-	pwd, err := os.Getwd()
+	absPath, err := filepath.Abs(filename)
 	if err != nil {
-		fmt.Println("error: get pwd")
-		return nil, err
+		fmt.Println("Get abs filepath error: ", err)
 	}
+	fmt.Println("Filepath: ", absPath)
 
-	fh, err := os.Open(pwd + "/" + filename)
+	fh, err := os.Open(absPath)
 	if err != nil {
 		fmt.Println("error opening file")
 		return nil, err
@@ -80,7 +79,6 @@ func postFile(filename string, URL string, text string, branch string) (*http.Re
 	req.Header.Add("Content-Type", "multipart/form-data;boundary="+boundary)
 	req.Header.Add("Text", text)
 	req.Header.Add("Branch", branch)
-	req.Header.Add("Url", URL)
 	req.ContentLength = fi.Size() + int64(body_buf.Len()) + int64(close_buf.Len())
 
 	return http.DefaultClient.Do(req)

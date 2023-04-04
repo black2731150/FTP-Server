@@ -33,7 +33,6 @@ func DownoadFile() gin.HandlerFunc {
 			if err == io.EOF {
 				break
 			}
-
 			ctx.Writer.Write(buf[:n])
 		}
 	}

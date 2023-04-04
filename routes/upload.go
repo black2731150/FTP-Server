@@ -15,7 +15,6 @@ func Upload() gin.HandlerFunc {
 		file, err := ctx.FormFile("file")
 		text := ctx.GetHeader("Text")
 		branch := ctx.GetHeader("Branch")
-		url := ctx.GetHeader("Url")
 		if err != nil {
 			ctx.String(http.StatusInternalServerError, "error: Get file name error.\n")
 		} else {
@@ -24,7 +23,7 @@ func Upload() gin.HandlerFunc {
 			ctx.SaveUploadedFile(file, filepath)
 
 			//放入数据库
-			err := database.WriteToDB(filepath, text, branch, url)
+			err := database.WriteToDB(filepath, text, branch)
 			if err != nil {
 				fmt.Println("Wirte to DB error: ", err)
 			}

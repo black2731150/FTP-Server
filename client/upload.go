@@ -9,6 +9,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 
 func main() {
@@ -48,13 +49,14 @@ func postFile(filename string, URL string, text string, branch string) (*http.Re
 		return nil, err
 	}
 
-	pwd, err := os.Getwd()
+	//统一转换成绝对路径处理
+	absPath, err := filepath.Abs(filename)
 	if err != nil {
-		fmt.Println("error: get pwd")
-		return nil, err
+		fmt.Println("Get abs filepath error: ", err)
 	}
+	// fmt.Println("Filepath: ", absPath)
 
-	fh, err := os.Open(pwd + "/" + filename)
+	fh, err := os.Open(absPath)
 	if err != nil {
 		fmt.Println("error opening file")
 		return nil, err
@@ -78,7 +80,6 @@ func postFile(filename string, URL string, text string, branch string) (*http.Re
 	req.Header.Add("Content-Type", "multipart/form-data;boundary="+boundary)
 	req.Header.Add("Text", text)
 	req.Header.Add("Branch", branch)
-	req.Header.Add("Url", URL)
 	req.ContentLength = fi.Size() + int64(body_buf.Len()) + int64(close_buf.Len())
 
 	return http.DefaultClient.Do(req)

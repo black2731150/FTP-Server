@@ -1,7 +1,7 @@
 package global
 
 const (
-	FileServerFile = "./files"
+	FileServerFile = "./files/"
 )
 
 const (
