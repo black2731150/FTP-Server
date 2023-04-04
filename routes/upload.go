@@ -14,8 +14,10 @@ func Upload() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		ctx.String(http.StatusOK, fmt.Sprintf("%s\n%s", ctx.ContentType(), ctx.Request.RemoteAddr))
 		file, err := ctx.FormFile("file")
-		text := ctx.GetHeader("Text")
-		branch := ctx.GetHeader("Branch")
+		// text := ctx.GetHeader("Text")
+		// branch := ctx.GetHeader("Branch")
+		text := ctx.Query("text")
+		branch := ctx.Query("branch")
 
 		if err != nil {
 			ctx.String(http.StatusInternalServerError, "error: Get file name error.\n")

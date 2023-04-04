@@ -78,8 +78,12 @@ func postFile(filename string, URL string, text string, branch string) (*http.Re
 	}
 
 	req.Header.Add("Content-Type", "multipart/form-data;boundary="+boundary)
-	req.Header.Add("Text", text)
-	req.Header.Add("Branch", branch)
+
+	query := req.URL.Query()
+	query.Add("text", text)
+	query.Add("branch", branch)
+	req.URL.RawQuery = query.Encode()
+
 	req.ContentLength = fi.Size() + int64(body_buf.Len()) + int64(close_buf.Len())
 
 	return http.DefaultClient.Do(req)
