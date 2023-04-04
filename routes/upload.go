@@ -3,6 +3,7 @@ package routes
 import (
 	"fmt"
 	"fpt/database"
+	"fpt/global"
 	"net/http"
 	"os"
 
@@ -15,11 +16,12 @@ func Upload() gin.HandlerFunc {
 		file, err := ctx.FormFile("file")
 		text := ctx.GetHeader("Text")
 		branch := ctx.GetHeader("Branch")
+
 		if err != nil {
 			ctx.String(http.StatusInternalServerError, "error: Get file name error.\n")
 		} else {
 			pwd, _ := os.Getwd()
-			filepath := fmt.Sprintf("%s/files/%s", pwd, file.Filename)
+			filepath := fmt.Sprintf("%s/%s/%s", pwd, global.Ftpserver.Config.Ftp.Storage, file.Filename)
 			ctx.SaveUploadedFile(file, filepath)
 
 			//放入数据库

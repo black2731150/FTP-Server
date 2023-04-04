@@ -23,6 +23,7 @@ func InitializeDB() {
 //初始化sqlite数据库
 func initSqliteGorm() *gorm.DB {
 	os.Mkdir(global.Ftpserver.Config.Database.DatabaseFile, os.ModePerm)
+	os.Mkdir(global.Ftpserver.Config.Ftp.Storage, os.ModePerm)
 
 	databasePath := global.Ftpserver.Config.Database.DatabaseFile + "/" + global.Ftpserver.Config.Database.DatabaseName
 	db, err := gorm.Open(sqlite.Open(databasePath), &gorm.Config{})

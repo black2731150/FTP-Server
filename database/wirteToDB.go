@@ -21,7 +21,7 @@ func WriteToDB(filepath string, text string, branch string) error {
 	fileinfo.Name = filestat.Name()
 	fileinfo.Size = filestat.Size()
 	fileinfo.CreateTime = filestat.ModTime().Format("2006-01-02 15:04:05")
-	fileinfo.DownLandURL = "/files/" + filestat.Name()
+	fileinfo.DownLandURL = "/" + global.Ftpserver.Config.Ftp.Storage + "/" + filestat.Name()
 	fileinfo.Md5 = common.HashMD5(filepath)
 	fileinfo.Branch = branch
 	fileinfo.Text = text

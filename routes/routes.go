@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"fmt"
+	"fpt/global"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +15,7 @@ func SetRootGroupRoutes(router *gin.RouterGroup) {
 	router.StaticFile("/", "./web/index.html")
 
 	//下载文件服务
-	router.GET("/files/:FileName", DownoadFile())
+	router.GET(fmt.Sprintf("/%s/:FileName", global.Ftpserver.Config.Ftp.Storage), DownoadFile())
 
 	//上传文件服务
 	router.POST("/upload", Upload())

@@ -71,7 +71,7 @@ func GetFileInfoFromDB1(page, size int, search string) (int64, []global.FileInfo
 	var fileinfos []global.FileInfo
 	var total int64
 	Lock.Lock()
-	DB.Table("file_infos").Where("(name like ? or branch like ?) limit ?,?", "%"+search+"%", "%"+search+"%", (page-1)*size, size).Find(&fileinfos).Count(&total)
+	DB.Table("file_infos").Where("(name like ? or branch like ?) order by create_time desc limit ?,?", "%"+search+"%", "%"+search+"%", (page-1)*size, size).Find(&fileinfos).Count(&total)
 	Lock.Unlock()
 
 	// fmt.Println("Get :", fileinfos, "\ntotal: ", total)
