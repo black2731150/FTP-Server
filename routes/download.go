@@ -27,11 +27,11 @@ func DownoadFile() gin.HandlerFunc {
 		for {
 			buf := make([]byte, chuck)
 			n, err := file.Read(buf)
-			if err != nil {
-				ctx.String(http.StatusOK, "Error")
-			}
 			if err == io.EOF {
 				break
+			}
+			if err != nil {
+				ctx.String(http.StatusOK, "Error")
 			}
 			ctx.Writer.Write(buf[:n])
 		}
