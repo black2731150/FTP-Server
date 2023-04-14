@@ -32,6 +32,7 @@ func DownoadFile() gin.HandlerFunc {
 			}
 			if err != nil {
 				ctx.String(http.StatusOK, "Error")
+				break
 			}
 			ctx.Writer.Write(buf[:n])
 		}
